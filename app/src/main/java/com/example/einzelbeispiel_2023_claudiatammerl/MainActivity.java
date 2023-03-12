@@ -41,7 +41,41 @@ public class MainActivity extends AppCompatActivity {
                 new TCP_Client().execute();
             }
         });
+
+        berechnen_quersumme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                int[] zahlenArray = new int[matrikelnummer.length()];
+
+                for(int i=0;i<matrikelnummer.length();i++) {
+                    zahlenArray[i] = Character.getNumericValue(matrikelnummer.getText().charAt(i));
+                }
+                ergebnis_berechnung.setText(getBerechnen_quersumme(zahlenArray));
+            }
+        });
+
     }
+
+    public String getBerechnen_quersumme(int [] matrikelNr) {
+        String gerade = "Die Quersumme ist gerade!";
+        String ungerade = "Die Quersumme ist ungerade!";
+        int summe = 0;
+        for (int i = 0; i < matrikelNr.length; i++ ) {
+            if (i % 2 == 0){
+                summe = summe + matrikelNr[i];
+            }else{
+                summe = summe - matrikelNr[i];
+            }
+        }
+        if(summe %2 == 0){
+            return gerade;
+        }else{
+            return ungerade;
+        }
+    }
+
 
     class TCP_Client extends AsyncTask<Void, Void, Void> {
 
